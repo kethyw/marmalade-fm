@@ -1,27 +1,21 @@
 import React from 'react';
-import Counter from './Counter';
+import { connect } from 'react-redux';
+import Stat from './Stat';
 
-const Stat = ({ statName, statNumber, statWord }) => (
-  <div className="mb4" style={{ marginRight: -2 }}>
-    <div className="f6 biryani ttu">{statName}</div>
-    <div className="f5 b biryani-black ttu tracked">
-      {statNumber} {statWord}
-    </div>
-  </div>
-)
 
 const About = ({ mixes }) =>
-  <div className="measure center">
-    <div className="lh-copy mb4">
+  // div that wraps everything 
+  <div className="ph3 ph4-l pad-bottom">
+    {/* second div that wraps everything  */}
+    <div className="measure cente lh-copyr">
+
       <p className='mt0'>
         Marmalade.fm features the latest and greatest in grooves, beats and world music.
       </p>
-      <p>
+      <p className="mb4">
         Whether you’re into hip hop, trip hop, classic jazz, fusion jazz, afro beat or break beat… we have you covered!
         </p>
 
-    </div>
-    <div className="">
       <Stat
         statName='Featuring...'
         statNumber={mixes.length}
@@ -36,8 +30,13 @@ const About = ({ mixes }) =>
         statName='With...'
         statNumber={mixes.reduce((accum, current) => accum + current.audio_length, 0)}
         statWord="seconds" />
+
     </div>
 
   </div>;
 
-export default About; 
+// here we connect our component to the redux state 
+// we pass it our entire state and all of our actions
+// this is a higher order component (a wrapper component)
+// that provides our About component with all our data 
+export default connect(state => state)(About); 
